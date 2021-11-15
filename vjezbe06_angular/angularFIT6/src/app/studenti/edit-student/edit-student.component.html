@@ -1,0 +1,21 @@
+<p>edit-student works!</p>
+
+
+<div *ngIf="editStudent != null">
+
+  <div class="mb-3">
+    <label  class="form-label">Ime studenta</label>
+    <input class="form-control" placeholder="ime" [(ngModel)]="editStudent.ime">
+  </div>
+
+  <div class="mb-3">
+    <label  class="form-label">Prezime studenta</label>
+    <input class="form-control" placeholder="Prezime" [(ngModel)]="editStudent.prezime">
+  </div>
+  <button (click)="snimi()">Snimi</button>
+
+</div>
+
+<div *ngIf="editStudent == null">
+Odaberite studenta za uređivanje
+</div>
