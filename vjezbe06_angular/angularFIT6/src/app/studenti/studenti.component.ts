@@ -11,8 +11,6 @@ export class StudentiComponent implements OnInit {
 
   title:string = 'angularFIT2';
   ime:string = '';
-  brojac: number=0;
-  niz:string[]=['jedan', 'dva', 'tri', 'četiri'];
   studentPodaci: any;
   odabraniStudent: any;
 
