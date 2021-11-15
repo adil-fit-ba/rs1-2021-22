@@ -9,6 +9,7 @@ import { OpstineComponent } from './opstine/opstine.component';
 import { Proba1Component } from './proba1/proba1.component';
 import { RouterModule } from '@angular/router';
 import { EditStudentComponent } from './studenti/edit-student/edit-student.component';
+import { EditZaposleniciComponent } from './zaposlenici/edit-zaposlenici/edit-zaposlenici.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { EditStudentComponent } from './studenti/edit-student/edit-student.compo
     ZaposleniciComponent,
     OpstineComponent,
     Proba1Component,
-    EditStudentComponent
+    EditStudentComponent,
+    EditZaposleniciComponent
   ],
   imports: [
     BrowserModule,

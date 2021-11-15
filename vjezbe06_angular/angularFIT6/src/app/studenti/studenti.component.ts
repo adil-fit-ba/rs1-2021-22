@@ -19,12 +19,6 @@ export class StudentiComponent implements OnInit {
   constructor(private httpKlijent: HttpClient) {
   }
 
-  testirajString() :void
-  {
-    this.brojac++;
-    this.ime += "." + this.brojac;
-  }
-
   testirajWebApi() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Student/GetAll").subscribe(x=>{
@@ -32,20 +26,6 @@ export class StudentiComponent implements OnInit {
     });
   }
 
-  pokreniTimer() :void
-  {
-    setInterval(()=>{
-      this.brojac++;
-    }, 1000);
-  }
-
-  jelVidljivo() :boolean {
-    return this.ime.length>0
-  }
-
-  mojStyle() {
-    return (this.brojac%2==0)?{'color':'blue', 'margin-left': (this.brojac + 'px')}: {'color': 'red', 'margin-left': (this.brojac + 'px')}
-  }
 
   getStudentPodaci() {
     if (this.studentPodaci == null)
