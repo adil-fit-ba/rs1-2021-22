@@ -12,6 +12,7 @@ export class StudentiComponent implements OnInit {
   title:string = 'angularFIT2';
   ime:string = '';
   studentPodaci: any;
+  odabraniStudent: any=null;
 
   constructor(private httpKlijent: HttpClient) {
   }
@@ -23,7 +24,6 @@ export class StudentiComponent implements OnInit {
     });
   }
 
-
   getStudentPodaci() {
     if (this.studentPodaci == null)
       return [];
@@ -33,5 +33,14 @@ export class StudentiComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  detalji(s:any) {
+      this.odabraniStudent= s;
+  }
 
+  snimi() {
+    //this.odabraniStudent
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.odabraniStudent.id, this.odabraniStudent).subscribe((povratnaVrijednost:any) =>{
+      alert("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
+    });
+  }
 }

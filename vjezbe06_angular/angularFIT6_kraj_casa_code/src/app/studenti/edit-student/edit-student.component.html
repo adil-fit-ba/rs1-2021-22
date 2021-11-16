@@ -1,1 +1,10 @@
 <p>edit-student works!</p>
+<p *ngIf="urediStudent != null" style="border: 1px solid red">
+  edit-student.component.html
+  Ime i prezime<br/>
+  <input [(ngModel)]="urediStudent.ime">
+  <input [(ngModel)]="urediStudent.prezime"><br>
+  Opstina rodjenja id
+  <input type="number" [(ngModel)]="urediStudent.opstina_rodjenja_id"  >
+  <button (click)="snimi()">Snimi</button>
+</p>

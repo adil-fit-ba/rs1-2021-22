@@ -29,10 +29,21 @@
     <td><img class="profilna-slika" src="{{s.slika_studenta}}"></td>
     <td>
       <button>Obrisi</button>
-      <button>Detalji</button>
+      <button (click)="detalji(s)">Detalji</button>
     </td>
   </tr>
   </tbody>
 </table>
 
+<p *ngIf="odabraniStudent != null" style="border: 1px solid blue">
+  student.component.html
+  Ime i prezime<br/>
+  <input [(ngModel)]="odabraniStudent.ime">
+  <input [(ngModel)]="odabraniStudent.prezime"><br>
+  Opstina rodjenja id
+  <input type="number" [(ngModel)]="odabraniStudent.opstina_rodjenja_id"  >
+  <button (click)="snimi()">Snimi</button>
+</p>
 
+
+<app-edit-student [urediStudent] = "odabraniStudent"></app-edit-student>

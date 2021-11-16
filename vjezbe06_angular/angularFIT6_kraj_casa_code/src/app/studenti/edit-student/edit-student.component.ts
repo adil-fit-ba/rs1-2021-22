@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MojConfig} from "../../moj-config";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-student',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-student.component.css']
 })
 export class EditStudentComponent implements OnInit {
+  @Input()
+  urediStudent: any;
 
-  constructor() { }
-
+  constructor(private httpKlijent: HttpClient) {
+  }
   ngOnInit(): void {
   }
+
+  snimi() {
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.urediStudent.id, this.urediStudent).subscribe((povratnaVrijednost:any) =>{
+      alert("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
+    });
+  }
+
 
 }
