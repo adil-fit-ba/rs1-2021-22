@@ -12,7 +12,6 @@ export class StudentiComponent implements OnInit {
   title:string = 'angularFIT2';
   ime:string = '';
   studentPodaci: any;
-  odabraniStudent: any;
 
   constructor(private httpKlijent: HttpClient) {
   }
@@ -34,7 +33,5 @@ export class StudentiComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  detalji(s:any) {
-    this.odabraniStudent = s;
-  }
+
 }
