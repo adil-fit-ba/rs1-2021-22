@@ -35,15 +35,22 @@
   </tbody>
 </table>
 
-<p *ngIf="odabraniStudent != null" style="border: 1px solid blue">
+<div *ngIf="odabraniStudent != null" style="border: 1px solid blue">
   student.component.html
-  Ime i prezime<br/>
-  <input [(ngModel)]="odabraniStudent.ime">
-  <input [(ngModel)]="odabraniStudent.prezime"><br>
-  Opstina rodjenja id
-  <input type="number" [(ngModel)]="odabraniStudent.opstina_rodjenja_id"  >
-  <button (click)="snimi()">Snimi</button>
-</p>
+  <div class="mb-3">
+    <label class="form-label">Ime studenta</label>
+    <input class="form-control" [(ngModel)]="odabraniStudent.ime"  placeholder="Ime studenta">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Prezime studenta</label>
+    <input class="form-control" [(ngModel)]="odabraniStudent.ime"  placeholder="Prezime studenta">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Opstina rodjenja</label>
+    <input type="number" class="form-control" [(ngModel)]="odabraniStudent.opstina_rodjenja_id"  placeholder="Opstina rodjenja id">
+  </div>
+  <button class="form-label" (click)="snimi()">Snimi</button>
+</div>
 
 
 <app-edit-student [urediStudent] = "odabraniStudent"></app-edit-student>

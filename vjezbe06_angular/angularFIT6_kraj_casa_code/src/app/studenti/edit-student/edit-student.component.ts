@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
 
+declare function porukaSuccess(s:string):any;
+
 @Component({
   selector: 'app-edit-student',
   templateUrl: './edit-student.component.html',
@@ -18,7 +20,8 @@ export class EditStudentComponent implements OnInit {
 
   snimi() {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.urediStudent.id, this.urediStudent).subscribe((povratnaVrijednost:any) =>{
-      alert("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
+      porukaSuccess("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
+      this.urediStudent.prikazi = false;
     });
   }
 

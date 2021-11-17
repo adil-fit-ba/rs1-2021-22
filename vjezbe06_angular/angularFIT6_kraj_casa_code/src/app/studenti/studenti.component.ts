@@ -35,11 +35,13 @@ export class StudentiComponent implements OnInit {
 
   detalji(s:any) {
       this.odabraniStudent= s;
+      this.odabraniStudent.prikazi = true;
   }
 
   snimi() {
     //this.odabraniStudent
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.odabraniStudent.id, this.odabraniStudent).subscribe((povratnaVrijednost:any) =>{
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.odabraniStudent.id, this.odabraniStudent)
+      .subscribe((povratnaVrijednost:any) =>{
       alert("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
     });
   }
