@@ -12,6 +12,10 @@ import { EditStudentComponent } from './studenti/edit-student/edit-student.compo
 import { EditZaposlenikComponent } from './zaposlenici/edit-zaposlenik/edit-zaposlenik.component';
 import { DrzavaComponent } from './drzava/drzava.component';
 import { DrzavaEditComponent } from './drzava/drzava-edit/drzava-edit.component';
+import { Proba2Component } from './proba2/proba2.component';
+import { Proba3Component } from './proba3/proba3.component';
+import { Proba4Component } from './proba4/proba4.component';
+import { Proba5Component } from './proba5/proba5.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { DrzavaEditComponent } from './drzava/drzava-edit/drzava-edit.component'
     EditStudentComponent,
     EditZaposlenikComponent,
     DrzavaComponent,
-    DrzavaEditComponent
+    DrzavaEditComponent,
+    Proba2Component,
+    Proba3Component,
+    Proba4Component,
+    Proba5Component
   ],
   imports: [
     BrowserModule,
@@ -33,6 +41,10 @@ import { DrzavaEditComponent } from './drzava/drzava-edit/drzava-edit.component'
       {path: 'zaposlenici', component: ZaposleniciComponent},
       {path: 'opstine', component: OpstineComponent},
       {path: 'proba1', component: Proba1Component},
+      {path: 'proba2', component: Proba2Component},
+      {path: 'proba3', component: Proba3Component},
+      {path: 'proba4', component: Proba4Component},
+      {path: 'proba5', component: Proba5Component},
       {path: 'putanju-do-drzava', component: DrzavaComponent},
     ]),
     FormsModule,
