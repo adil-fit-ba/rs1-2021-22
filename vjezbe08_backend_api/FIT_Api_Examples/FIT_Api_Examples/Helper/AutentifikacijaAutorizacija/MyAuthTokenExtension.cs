@@ -21,7 +21,7 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 
         public static string GetMyAuthToken(this HttpContext httpContext)
         {
-            string token = httpContext.Request.Headers["MojAutentifikacijaToken"];
+            string token = httpContext.Request.Headers["autentifikacija-token"];
             return token;
         }
     }

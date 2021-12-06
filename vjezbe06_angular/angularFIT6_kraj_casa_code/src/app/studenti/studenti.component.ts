@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 
 @Component({
@@ -19,7 +19,10 @@ export class StudentiComponent implements OnInit {
 
   testirajWebApi() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Student/GetAll").subscribe(x=>{
+    let headers = new HttpHeaders();
+    headers.append('MojAutentifikacijaToken', '123456');
+
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Student/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.studentPodaci = x;
     });
   }
