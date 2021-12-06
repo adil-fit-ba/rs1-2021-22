@@ -100,6 +100,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
             string mojAutentifikacijaToken = ControllerContext.HttpContext.Request.Headers["autentifikacija-token"];
             KorisnickiNalog korisnik = ControllerContext.HttpContext.GetKorisnikOfAuthToken();
 
+            if (korisnik == null)
+                return null;
             
             var data = _dbContext.Student
                 .Include(s => s.opstina_rodjenja.drzava)

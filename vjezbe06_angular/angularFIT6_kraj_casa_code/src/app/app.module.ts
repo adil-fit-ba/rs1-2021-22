@@ -16,6 +16,7 @@ import { Proba2Component } from './proba2/proba2.component';
 import { Proba3Component } from './proba3/proba3.component';
 import { Proba4Component } from './proba4/proba4.component';
 import { Proba5Component } from './proba5/proba5.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { Proba5Component } from './proba5/proba5.component';
     Proba2Component,
     Proba3Component,
     Proba4Component,
-    Proba5Component
+    Proba5Component,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ import { Proba5Component } from './proba5/proba5.component';
       {path: 'proba4', component: Proba4Component},
       {path: 'proba5', component: Proba5Component},
       {path: 'putanju-do-drzava', component: DrzavaComponent},
+      {path: 'login', component: LoginComponent},
     ]),
     FormsModule,
     HttpClientModule

@@ -19,9 +19,6 @@ export class StudentiComponent implements OnInit {
 
   testirajWebApi() :void
   {
-    let headers = new HttpHeaders();
-    headers.append('MojAutentifikacijaToken', '123456');
-
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Student/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.studentPodaci = x;
     });

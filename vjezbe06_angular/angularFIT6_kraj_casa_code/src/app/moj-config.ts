@@ -5,7 +5,7 @@ export class MojConfig{
   static http_opcije= function (){
     return {
         headers: {
-        'autentifikacija-token': 't1001',
+        'autentifikacija-token': localStorage.getItem("autentifikacija-token"),
       }
     };
   }
