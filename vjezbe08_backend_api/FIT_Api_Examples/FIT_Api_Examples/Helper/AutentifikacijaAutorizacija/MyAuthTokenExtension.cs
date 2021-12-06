@@ -1,9 +1,10 @@
 ﻿using System.Linq;
-using FIT_Online_shop.EF;
-using FIT_Online_shop.EntityModels;
+using FIT_Api_Examples.Data;
+using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace FIT_Online_shop.Helper
+namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 {
     public static class MyAuthTokenExtension
     {
@@ -11,16 +12,12 @@ namespace FIT_Online_shop.Helper
          public static KorisnickiNalog GetKorisnikOfAuthToken(this HttpContext httpContext)
         {
             string token = httpContext.GetMyAuthToken();
-            return GetKorisnikOfAuthToken(token);
-        }
+            ApplicationDbContext db = httpContext.RequestServices.GetService<ApplicationDbContext>();
 
-        public static KorisnickiNalog GetKorisnikOfAuthToken(string token)
-        {
-            MojDbContext db = new MojDbContext();
-
-            KorisnickiNalog korisnickiNalog = db.AutentifikacijaToken.Where(x => token != null && x.Vrijednost == token).Select(s => s.KorisnickiNalog).SingleOrDefault();
+            KorisnickiNalog korisnickiNalog = db.AutentifikacijaToken.Where(x => token != null && x.vrijednost == token).Select(s => s.korisnickiNalog).SingleOrDefault();
             return korisnickiNalog;
         }
+    
 
         public static string GetMyAuthToken(this HttpContext httpContext)
         {

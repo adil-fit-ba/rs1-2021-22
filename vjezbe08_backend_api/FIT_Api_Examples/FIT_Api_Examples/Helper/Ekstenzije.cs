@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FIT_Api_Examples.Helper
 {
-    public static class Class
+    public static class Ekstenzije
     {
         public static string RemoveTags(this string input)
         {
