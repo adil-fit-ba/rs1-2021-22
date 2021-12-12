@@ -5,7 +5,7 @@ using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 
 namespace FIT_Api_Examples.Modul2.Models
 {
-    [Table("Nastavnik")]
+    [Table("Student")]
     public class Student:KorisnickiNalog
     {
         public string ime { get; set; }
