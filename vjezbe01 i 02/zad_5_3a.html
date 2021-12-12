@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    table, tr, td{
+        border: 1px solid red;
+    }
+</style>
+<body>
+	
+	<input style="width: 700px" id="urlText" value="Mostar" />
+    <button onclick="btnClick()">Preuzmi</button>
+    <table id="rezultatDiv" style="width: 800px">
+    <tr>
+        <td>Temp</td>
+        <td>Vrijeme</td>
+    </tr>
+    </table>
+</body>
+<script>
+    function btnClick() {
+        let grad = document.getElementById("urlText").value;
+
+		let url = `http://api.openweathermap.org/data/2.5/weather?q=${grad}&appid=917b026a997320574cd4315b9bf4c73a` ;
+        fetch(url)
+            .then(
+                 function (r)  {
+                    if (r.status !== 200) {
+                        alert("Server javlja grešku: " + r.status);
+                        return;
+                    }
+
+                    r.text().then(function(t){
+                        let podaci = JSON.parse(t);
+                        let temperatura = podaci.main.temp-272;
+                        let pritisak = podaci.main.pressure;
+
+                        document.getElementById("rezultatDiv").innerHTML = 
+                        `<tr>
+                            <td> ${temperatura} C </td>
+                            <td> ${pritisak} hPa </td>
+                        </tr>`;
+                    });
+                }
+            )
+            .catch(
+                function (err) {
+                    alert("Greška u komunikaciji sa serverom: " + err);
+                }
+            );
+    }
+</script>
+</html>

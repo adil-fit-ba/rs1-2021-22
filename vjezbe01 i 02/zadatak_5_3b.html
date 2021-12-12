@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    table, tr, td, th{
+        border: 1px solid;
+    }
+</style>
+<body>
+	
+	<input style="width: 700px" id="urlText" value="Sarajevo" />
+    <button onclick="btnClick()">Preuzmi</button>
+    <table id="tabelaID">
+        <tr>
+            <th>City</th>
+            <th>Time</th>
+            <th>Temp</th>
+            <th>Description</th>
+            <th>Humidity</th>
+            <th>Wind speed</th>
+            <th>Wind direction</th>
+            <th>Pressure</th>
+        </tr>
+    </table>
+</body>
+<script>
+    function ikonica_smjera_vjetra(d){ 
+        var r = d - 90;
+        return '<img src="https://ssl.gstatic.com/m/images/weather/wind_unselected.svg"'
+                    +' style="transform:rotate(' + r + 'deg)">';
+    }
+
+    function btnClick() {
+		let grad =  document.getElementById("urlText").value;
+
+        let url = `https://api.openweathermap.org/data/2.5/forecast?q=${grad}&appid=917b026a997320574cd4315b9bf4c73a`;
+        fetch(url)
+            .then(
+                 r=> {
+                    if (r.status !== 200) {
+                        alert("Server javlja grešku: " + r.status);
+                        return;
+                    }
+
+                    r.json().then(function(niz){
+
+                        for (const x of niz.list) {
+
+                            var time = new Date(x.dt*1000);
+                                var celsius = (x.main.temp - 272.15);
+                                var pressure = x.main.pressure; 
+                                var weatherDesc = x.weather[0].main + " " + x.weather[0].description ;//<-- zadatak: ispraviti
+                                var humidity = x.main.humidity;//<-- zadatak: ispraviti
+                                var windspeed = x.wind.speed;//<-- zadatak: ispraviti
+                                var winddegree = x.wind.deg;//<-- zadatak: ispraviti
+                                var cityname = niz.city.name;
+
+                                var noviRed = ("<tr><td>" +
+                                    cityname
+                                    + "</td><td>" +
+                                    time
+                                    + "</td><td>" +
+                                    celsius.toFixed(2) + "° C"
+                                    + "</td><td>" +
+                                    weatherDesc
+                                    + "</td><td>" +
+                                    humidity.toFixed(2) + " %"
+                                    + "</td><td>" +
+                                    windspeed.toFixed(2) + " meter/sec"
+                                    + "</td><td>"+
+                                    ikonica_smjera_vjetra(winddegree) +
+                                    winddegree + " °"
+                                    + "</td><td>" +
+                                    pressure.toFixed(2) + " hPa"
+                                    + "</td></tr>");
+
+                                document.getElementById("tabelaID").innerHTML
+                                    += noviRed;
+                        }
+                    });
+                }
+            )
+            .catch(
+                err=> {
+                    alert("Greška u komunikaciji sa serverom: " + err);
+                }
+            );
+    }
+</script>
+</html>

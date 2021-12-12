@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+</style>
+<body>
+	
+	<input style="width: 700px" id="urlText" value="https://wrd.app.fit.ba/demoText.txt" />
+    <button onclick="btnClick()">Preuzmi</button>
+    <div id="rezultatDiv" style="border:solid; width: 800px"></div>
+</body>
+<script>
+    function btnClick() {
+		let url = document.getElementById("urlText").value;
+        fetch(url)
+            .then(
+                function (r) {
+                    if (r.status !== 200) {
+                        alert("Server javlja grešku: " + r.status);
+                        return;
+                    }
+
+                    r.json().then(function(t){
+                        document.getElementById("rezultatDiv").innerHTML = 
+                        `<table border="1">
+                            <tr>
+                                <td>${t.weather[0].main}</td>
+                                <td>${t.weather[0].main}</td>
+                            </tr>
+                            </table>`;
+                    });
+                }
+            )
+            .catch(
+                err => {
+                    alert("Greška u komunikaciji sa serverom: " + err);
+                }
+            );
+    }
+</script>
+</html>
