@@ -46,6 +46,7 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             ApplicationDbContext db = httpContext.RequestServices.GetService<ApplicationDbContext>();
 
             AutentifikacijaToken korisnickiNalog = db.AutentifikacijaToken
+                .Include(s=>s.korisnickiNalog)
                 .SingleOrDefault(x => token != null && x.vrijednost == token);
             
             return korisnickiNalog;
