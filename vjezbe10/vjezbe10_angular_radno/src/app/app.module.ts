@@ -21,6 +21,8 @@ import { NastavniciComponent } from './nastavnici/nastavnici.component';
 import { HomeStudentComponent } from './home-student/home-student.component';
 import { HomeZaposlenikComponent } from './home-zaposlenik/home-zaposlenik.component';
 import { HomeComponent } from './home/home.component';
+import {AutorizacijaStudentskaSluzbaProvjera} from "./_guards/autorizacija-studentska-sluzba-provjera.service";
+import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.service";
 
 @NgModule({
   declarations: [
@@ -45,27 +47,29 @@ import { HomeComponent } from './home/home.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: 'studenti', component: StudentiComponent},
-      {path: 'edit-student/:id', component: EditStudentComponent},
+      {path: 'studenti', component: StudentiComponent, canActivate: [AutorizacijaStudentskaSluzbaProvjera]},
+      {path: 'edit-student/:id', component: EditStudentComponent, canActivate: [AutorizacijaStudentskaSluzbaProvjera]},
       {path: 'nastavnici', component: NastavniciComponent, canActivate: [AutorizacijaAdminProvjera]},
-      {path: 'opstine', component: OpstineComponent },
+      {path: 'opstine', component: OpstineComponent , canActivate: [AutorizacijaStudentskaSluzbaProvjera]},
       {path: 'proba1', component: Proba1Component},
       {path: 'proba2', component: Proba2Component},
       {path: 'proba3', component: Proba3Component},
       {path: 'proba4', component: Proba4Component},
       {path: 'proba5', component: Proba5Component},
-      {path: 'drzave', component: DrzavaComponent},
-      {path: 'home-student', component: HomeStudentComponent},
-      {path: 'home-zaposlenik', component: HomeZaposlenikComponent},
+      {path: 'drzave', component: DrzavaComponent, canActivate: [AutorizacijaStudentskaSluzbaProvjera]},
+      {path: 'home-student', component: HomeStudentComponent, canActivate: [AutorizacijaLoginProvjera]},
+      {path: 'home-zaposlenik', component: HomeZaposlenikComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'login', component: LoginComponent},
       {path: 'registracija', component: RegistracijaComponent},
-      {path: '**', component: HomeComponent},
+      {path: '**', component: HomeComponent, canActivate: [AutorizacijaLoginProvjera]},
     ]),
     FormsModule,
     HttpClientModule
   ],
   providers: [
     AutorizacijaAdminProvjera,
+    AutorizacijaLoginProvjera,
+    AutorizacijaStudentskaSluzbaProvjera
   ],
   bootstrap: [AppComponent]
 })

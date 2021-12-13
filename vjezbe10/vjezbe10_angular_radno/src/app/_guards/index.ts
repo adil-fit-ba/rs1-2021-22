@@ -1,1 +1,1 @@
-﻿export * from './autorizacija-provjera.service';
+﻿export * from './autorizacija-admin-provjera.service';
