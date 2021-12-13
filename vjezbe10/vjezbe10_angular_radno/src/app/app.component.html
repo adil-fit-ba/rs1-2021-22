@@ -1,15 +1,60 @@
 
-<nav *ngIf="loginInfo().isLogiran">
-  <a class="button" routerLink="/proba1">Proba1</a> |
-  <a class="button" routerLink="/proba2">Proba2</a> |
-  <a class="button" routerLink="/proba3">Proba3</a> |
-  <a class="button" routerLink="/proba4">Proba4</a> |
-  <a class="button" routerLink="/proba5">Proba5</a> |
-  <a *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="button" routerLink="/studenti">Studenti</a> |
-  <a *ngIf="loginInfo().isPermsijaAdmin" class="button" routerLink="/nastavnici">Nastavnici</a> |
-  <a *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="button" routerLink="/opstine">Opstine</a> |
-  <a *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="button" routerLink="/drzave">Dugme drzave</a> |
-  <a class="button" (click)="logoutButton()">Logout</a> |
+<nav  class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="loginInfo().isLogiran">
+  <a class="navbar-brand" href="https://www.fit.ba"><img src="https://www.fit.ba/lms/css/img/logo.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="nav-item">
+        <a class="nav-link" routerLink="/studenti">Studenti</a>
+      </li>
+      <li *ngIf="loginInfo().isPermsijaAdmin" class="nav-item">
+        <a class="nav-link" routerLink="/nastavnici">Nastavnici</a>
+      </li>
+
+
+      <li class="nav-item dropdown"  >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarProbaLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Proba
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarProbaLink">
+          <a class="dropdown-item" routerLink="/proba1">Proba1</a>
+          <a class="dropdown-item" routerLink="/proba2">Proba2</a>
+          <a class="dropdown-item" routerLink="/proba3">Proba3</a>
+          <a class="dropdown-item" routerLink="/proba4">Proba4</a>
+          <a class="dropdown-item" routerLink="/proba5">Proba5</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" *ngIf="loginInfo().isPermisijaStudentskaSluzba" >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarSifarniciLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Šifarnici
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarSifarniciLink">
+          <a class="dropdown-item" routerLink="/drzave">Države</a>
+          <a class="dropdown-item" routerLink="/opstine">Opstine</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarLogiraniKorisnikLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+         <img class="profilna-slika" src="{{loginInfo().autentifikacijaToken.korisnickiNalog.slika_korisnika}}"> {{loginInfo().autentifikacijaToken.korisnickiNalog.korisnickoIme}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarLogiraniKorisnikLink">
+          <a class="dropdown-item" routerLink="/drzave">Postavke profila</a>
+          <a class="dropdown-item" (click)="logoutButton()">Odjava</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
 </nav>
+
+
 
 <router-outlet></router-outlet>

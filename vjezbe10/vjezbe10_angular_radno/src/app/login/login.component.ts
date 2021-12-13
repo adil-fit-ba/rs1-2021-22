@@ -44,7 +44,5 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  btnRegistracija() {
-      this.router.navigateByUrl("/registracija");
-  }
+
 }

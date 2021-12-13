@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {MojConfig} from "../moj-config";
+import {MojConfig} from "../../moj-config";
 
 @Component({
   selector: 'app-proba4',
