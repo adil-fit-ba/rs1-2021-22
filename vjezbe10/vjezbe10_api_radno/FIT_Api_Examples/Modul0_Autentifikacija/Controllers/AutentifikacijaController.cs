@@ -10,6 +10,7 @@ using FIT_Api_Examples.Modul2.Models;
 using FIT_Api_Examples.Modul3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static FIT_Api_Examples.Helper.AutentifikacijaAutorizacija.MyAuthTokenExtension;
 
 namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 {
@@ -27,19 +28,17 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
 
 
         [HttpPost]
-        public ActionResult<AutentifikacijaToken> Login([FromBody] LoginVM x)
+        public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)
         {
             //1- provjera logina
             KorisnickiNalog logiraniKorisnik = _dbContext.KorisnickiNalog
-                .Include(s=>s.nastavnik)
-                .Include(s=>s.student)
                 .SingleOrDefault(k =>
                 k.korisnickoIme != null && k.korisnickoIme == x.korisnickoIme && k.lozinka == x.lozinka);
 
             if (logiraniKorisnik == null)
             {
                 //pogresan username i password
-                return null;
+                return new LoginInformacije(null);
             }
 
             //2- generisati random string
@@ -58,7 +57,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             _dbContext.SaveChanges();
 
             //4- vratiti token string
-            return noviToken;
+            return new LoginInformacije(noviToken);
         }
 
         [HttpPost]

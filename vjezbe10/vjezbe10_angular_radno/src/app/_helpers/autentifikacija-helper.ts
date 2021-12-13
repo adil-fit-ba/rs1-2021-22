@@ -1,16 +1,21 @@
+import {LoginInformacije} from "./login-informacije";
 
 export class AutentifikacijaHelper {
 
-  static setKorisnik(korisnik: any):void
+  static setLoginInfo(x: LoginInformacije):void
   {
-      localStorage.setItem("autentifikacija-token", korisnik);
+    if (x==null)
+      x = new LoginInformacije();
+    localStorage.setItem("autentifikacija-token", JSON.stringify(x));
   }
 
-  static getKorisnik():any
+  static getLoginInfo():LoginInformacije
   {
-      let korisnik= localStorage.getItem("autentifikacija-token");
-      if (korisnik === "")
-        return null;
-      return korisnik;
+      let x = localStorage.getItem("autentifikacija-token");
+      if (x==="")
+        return new LoginInformacije();
+
+      let loginInformacije:LoginInformacije = JSON.parse(x);
+      return loginInformacije;
   }
 }

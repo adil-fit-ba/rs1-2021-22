@@ -35,27 +35,33 @@ namespace FIT_Api_Examples.Modul2.Controllers
             return Ok(_dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id)); ;
         }
 
-        [HttpPost]
-        public ActionResult Add([FromBody] StudentAddVM x)
-        {
-            if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
-                return Forbid();
+        //[HttpPost]
+        /// <summary>
+        /// ova funkcija se moze obrisati jer fnkcija update moze raditi update i add (modifikovano 12.12.2021)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        //public ActionResult Add([FromBody] StudentAddVM x)
+        //{
+        //    if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+        //        return Forbid();
 
-            var newStudent = new Student
-            {
-                ime = x.ime.RemoveTags(),
-                prezime = x.prezime.RemoveTags(),
-                broj_indeksa = x.broj_indeksa,
-                datum_rodjenja = x.datum_rodjenja,
-                opstina_rodjenja_id = x.opstina_rodjenja_id,
-                slika_korisnika = Config.SlikeURL + "empty.png",
-                created_time = DateTime.Now
-            };
+        //    var newStudent = new Student
+        //    {
+        //        ime = x.ime.RemoveTags(),
+        //        prezime = x.prezime.RemoveTags(),
+        //        broj_indeksa = x.broj_indeksa,
+        //        datum_rodjenja = x.datum_rodjenja,
+        //        opstina_rodjenja_id = x.opstina_rodjenja_id,
+        //        slika_korisnika = Config.SlikeURL + "empty.png",
+        //        created_time = DateTime.Now
+        //    };
 
-            _dbContext.Add(newStudent);
-            _dbContext.SaveChanges();
-            return Get(newStudent.id);
-        }
+        //    _dbContext.Add(newStudent);
+        //    _dbContext.SaveChanges();
+        //    return Get(newStudent.id);
+        //}
         
 
         [HttpPost("{id}")]
@@ -63,8 +69,18 @@ namespace FIT_Api_Examples.Modul2.Controllers
         {
             if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
                 return Forbid();
-
+              
             Student student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
+
+            if (id==0)
+            {
+                student = new Student
+                {
+                    slika_korisnika = Config.SlikeURL + "empty.png",
+                    created_time = DateTime.Now
+                };
+                _dbContext.Add(student);
+            }
 
             if (student == null)
                 return BadRequest("pogresan ID");
@@ -76,7 +92,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
             student.opstina_rodjenja_id = x.opstina_rodjenja_id;
 
             _dbContext.SaveChanges();
-            return Get(id);
+            return Get(student.id);
         }
 
         [HttpPost("{id}")]
@@ -117,7 +133,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
 
             var data = _dbContext.Student
                 .Include(s => s.opstina_rodjenja.drzava)
-                .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime)).OrderByDescending(s => s.prezime).ThenByDescending(s => s.ime)
+                .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
+                .OrderByDescending(s => s.id)
                 .AsQueryable();
             return data.Take(100).ToList();
         }

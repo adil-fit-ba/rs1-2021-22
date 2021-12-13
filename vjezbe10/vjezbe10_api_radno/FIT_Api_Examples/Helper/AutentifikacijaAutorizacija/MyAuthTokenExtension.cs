@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.Json.Serialization;
 using AutoMapper.QueryableExtensions;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
@@ -10,9 +11,15 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 {
     public static class MyAuthTokenExtension
     {
-        public class LoginInfo
+        public class LoginInformacije
         {
-            public KorisnickiNalog korisnickiNalog { get; set; }
+            public LoginInformacije(AutentifikacijaToken autentifikacijaToken)
+            {
+                this.autentifikacijaToken = autentifikacijaToken;
+            }
+
+            [JsonIgnore]
+            public KorisnickiNalog korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
             public AutentifikacijaToken autentifikacijaToken { get; set; }
             public bool isLogiran => korisnickiNalog != null;
 
@@ -22,23 +29,15 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             public bool isPermisijaProdekan => isLogiran && (korisnickiNalog.isProdekan || korisnickiNalog.isDekan || korisnickiNalog.isAdmin);
             public bool isPermisijaNastavnik => isLogiran && (korisnickiNalog.nastavnik != null || korisnickiNalog.isAdmin);
             public bool isPermisijaStudent => isLogiran && (korisnickiNalog.student != null || korisnickiNalog.isAdmin);
-            public bool isAdmin => isLogiran && korisnickiNalog.isAdmin;
+            public bool isPermsijaAdmin => isLogiran && korisnickiNalog.isAdmin;
         }
 
 
-        public static LoginInfo GetLoginInfo(this HttpContext httpContext)
+        public static LoginInformacije GetLoginInfo(this HttpContext httpContext)
         {
             var token = httpContext.GetAuthToken();
-            if (token == null)
-            {
-                return new LoginInfo();
-            }
 
-            return new LoginInfo
-            {
-                korisnickiNalog = token.korisnickiNalog,
-                autentifikacijaToken = token,
-            };
+            return new LoginInformacije(token);
         }
     
         public static AutentifikacijaToken GetAuthToken(this HttpContext httpContext)
@@ -47,8 +46,6 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             ApplicationDbContext db = httpContext.RequestServices.GetService<ApplicationDbContext>();
 
             AutentifikacijaToken korisnickiNalog = db.AutentifikacijaToken
-                .Include(s => s.korisnickiNalog.nastavnik)
-                .Include(s => s.korisnickiNalog.student)
                 .SingleOrDefault(x => token != null && x.vrijednost == token);
             
             return korisnickiNalog;

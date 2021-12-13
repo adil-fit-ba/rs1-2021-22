@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 
 @Component({
   selector: 'app-studenti',
@@ -42,7 +44,30 @@ export class StudentiComponent implements OnInit {
     //this.odabraniStudent
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.odabraniStudent.id, this.odabraniStudent)
       .subscribe((povratnaVrijednost:any) =>{
-      alert("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
+        porukaSuccess("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
     });
+  }
+
+  btnNovi() {
+    this.odabraniStudent = {
+      prikazi:true,
+      id:0,
+      ime :"",
+      prezime:"",
+      broj_indeksa: "ib0000",
+      opstina_rodjenja_id:  1,
+      datum_rodjenja: "2003-10-01"
+    }
+  }
+
+  obrisi(s:any) {
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Delete/" + s.id,null, MojConfig.http_opcije())
+      .subscribe((povratnaVrijednost:any) =>{
+        const index = this.studentPodaci.indexOf(s);
+        if (index > -1) {
+          this.studentPodaci.splice(index, 1);
+        }
+        porukaSuccess("obrisano..." + povratnaVrijednost.ime);
+      });
   }
 }

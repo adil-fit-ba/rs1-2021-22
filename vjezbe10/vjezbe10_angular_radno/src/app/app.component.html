@@ -1,14 +1,14 @@
 
-<nav *ngIf="IsLogiran()">
+<nav *ngIf="loginInfo().isLogiran">
   <a class="button" routerLink="/proba1">Proba1</a> |
   <a class="button" routerLink="/proba2">Proba2</a> |
   <a class="button" routerLink="/proba3">Proba3</a> |
   <a class="button" routerLink="/proba4">Proba4</a> |
   <a class="button" routerLink="/proba5">Proba5</a> |
-  <a class="button" routerLink="/studenti">Studenti</a> |
-  <a class="button" routerLink="/zaposlenici">Zaposlenici</a> |
-  <a class="button" routerLink="/opstine">Opstine</a> |
-  <a class="button" routerLink="/putanju-do-drzava">Dugme drzave</a> |
+  <a *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="button" routerLink="/studenti">Studenti</a> |
+  <a *ngIf="loginInfo().isPermsijaAdmin" class="button" routerLink="/nastavnici">Nastavnici</a> |
+  <a *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="button" routerLink="/opstine">Opstine</a> |
+  <a *ngIf="loginInfo().isPermisijaStudentskaSluzba" class="button" routerLink="/drzave">Dugme drzave</a> |
   <a class="button" (click)="logoutButton()">Logout</a> |
 </nav>
 

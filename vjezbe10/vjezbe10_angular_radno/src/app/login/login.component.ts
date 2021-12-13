@@ -3,6 +3,7 @@ import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "../_helpers/autentifikacija-helper";
+import {LoginInformacije} from "../_helpers/login-informacije";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -27,17 +28,17 @@ export class LoginComponent implements OnInit {
       korisnickoIme:this.txtKorisnickoIme,
       lozinka: this.txtLozinka
     };
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Autentifikacija/Login/", saljemo)
-      .subscribe((x:any) =>{
+    this.httpKlijent.post<LoginInformacije>(MojConfig.adresa_servera+ "/Autentifikacija/Login/", saljemo)
+      .subscribe((x:LoginInformacije) =>{
         if (x!=null) {
           porukaSuccess("uspjesan login");
-          AutentifikacijaHelper.setKorisnik(x.vrijednost)
+          AutentifikacijaHelper.setLoginInfo(x)
           this.router.navigateByUrl("/studenti");
 
         }
         else
         {
-          AutentifikacijaHelper.setKorisnik("")
+          AutentifikacijaHelper.setLoginInfo(null)
           porukaError("neispravan login");
         }
       });

@@ -3,6 +3,7 @@ import {MojConfig} from "./moj-config";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "./_helpers/autentifikacija-helper";
+import {LoginInformacije} from "./_helpers/login-informacije";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -18,7 +19,7 @@ export class AppComponent {
   }
 
   logoutButton() {
-    AutentifikacijaHelper.setKorisnik("");
+    AutentifikacijaHelper.setLoginInfo(null);
 
     this.httpKlijent.post(MojConfig.adresa_servera + "/Autentifikacija/Logout/", null, MojConfig.http_opcije())
       .subscribe((x: any) => {
@@ -27,7 +28,7 @@ export class AppComponent {
       });
   }
 
-  IsLogiran() {
-    return AutentifikacijaHelper.getKorisnik() != null;
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
   }
 }

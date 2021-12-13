@@ -26,14 +26,16 @@
     <td>{{s.opstina_rodjenja!=null?s.opstina_rodjenja.drzava.naziv:""}}</td>
     <td>{{s.opstina_rodjenja!=null?s.opstina_rodjenja.description:""}}</td>
     <td>{{s.datum_rodjenja}}</td>
-    <td><img class="profilna-slika" src="{{s.slika_studenta}}"></td>
+    <td><img class="profilna-slika" src="{{s.slika_korisnika}}"></td>
     <td>
-      <button>Obrisi</button>
+      <button (click)="obrisi(s)">Obrisi</button>
       <button (click)="detalji(s)">Detalji</button>
     </td>
   </tr>
   </tbody>
 </table>
+
+<button class="form-label" (click)="btnNovi()">Novi student</button>
 
 <div *ngIf="odabraniStudent != null" style="border: 1px solid blue">
   student.component.html
@@ -43,7 +45,7 @@
   </div>
   <div class="mb-3">
     <label class="form-label">Prezime studenta</label>
-    <input class="form-control" [(ngModel)]="odabraniStudent.ime"  placeholder="Prezime studenta">
+    <input class="form-control" [(ngModel)]="odabraniStudent.prezime"  placeholder="Prezime studenta">
   </div>
   <div class="mb-3">
     <label class="form-label">Opstina rodjenja</label>
