@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
-
 namespace FIT_Api_Examples.Migrations
 {
     public partial class init : Migration
@@ -128,7 +126,8 @@ namespace FIT_Api_Examples.Migrations
                         name: "FK_Nastavnik_KorisnickiNalog_id",
                         column: x => x.id,
                         principalTable: "KorisnickiNalog",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,12 +170,14 @@ namespace FIT_Api_Examples.Migrations
                         name: "FK_Student_KorisnickiNalog_id",
                         column: x => x.id,
                         principalTable: "KorisnickiNalog",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Student_Opstina_opstina_rodjenja_id",
                         column: x => x.opstina_rodjenja_id,
                         principalTable: "Opstina",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
