@@ -32,7 +32,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
         {
             //1- provjera logina
             KorisnickiNalog logiraniKorisnik = _dbContext.KorisnickiNalog
-                .SingleOrDefault(k =>
+                .FirstOrDefault(k =>
                 k.korisnickoIme != null && k.korisnickoIme == x.korisnickoIme && k.lozinka == x.lozinka);
 
             if (logiraniKorisnik == null)
