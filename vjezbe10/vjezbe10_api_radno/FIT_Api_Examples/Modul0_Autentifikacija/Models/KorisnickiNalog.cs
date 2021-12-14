@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 using FIT_Api_Examples.Modul2.Models;
 using FIT_Api_Examples.Modul3.Models;
@@ -18,6 +20,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
 
         [JsonIgnore]
         public Student student => this as Student;
+
         [JsonIgnore]
         public Nastavnik nastavnik => this as Nastavnik;
         public bool isNastavnik => nastavnik != null;

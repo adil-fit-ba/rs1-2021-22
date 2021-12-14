@@ -19,7 +19,7 @@ export class EditStudentComponent implements OnInit {
   }
 
   snimi() {
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.urediStudent.id, this.urediStudent).subscribe((povratnaVrijednost:any) =>{
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.urediStudent.id, this.urediStudent, MojConfig.http_opcije()).subscribe((povratnaVrijednost:any) =>{
       porukaSuccess("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
       this.urediStudent.prikazi = false;
     });

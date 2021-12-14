@@ -24,6 +24,8 @@ import {AutorizacijaStudentskaSluzbaProvjera} from "./_guards/autorizacija-stude
 import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.service";
 import { NotFoundComponent } from './not-found/not-found.component';
 import {AutorizacijaAdminProvjera} from "./_guards/autorizacija-admin-provjera.service";
+import { ObavijestiComponent } from './obavijesti/obavijesti.component';
+import {AutorizacijaProdekanProvjera} from "./_guards/autorizacija-prodekan-provjera.service";
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import {AutorizacijaAdminProvjera} from "./_guards/autorizacija-admin-provjera.s
     HomeZaposlenikComponent,
     HomeComponent,
     NotFoundComponent,
+    ObavijestiComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import {AutorizacijaAdminProvjera} from "./_guards/autorizacija-admin-provjera.s
       {path: 'home-student', component: HomeStudentComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'home-zaposlenik', component: HomeZaposlenikComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'login', component: LoginComponent},
+      {path: 'obavijesti', component: ObavijestiComponent, canActivate: [AutorizacijaProdekanProvjera]},
       {path: 'registracija', component: RegistracijaComponent},
       {path: '**', component: NotFoundComponent, canActivate: [AutorizacijaLoginProvjera]},
     ]),
@@ -71,7 +75,8 @@ import {AutorizacijaAdminProvjera} from "./_guards/autorizacija-admin-provjera.s
   providers: [
     AutorizacijaAdminProvjera,
     AutorizacijaLoginProvjera,
-    AutorizacijaStudentskaSluzbaProvjera
+    AutorizacijaStudentskaSluzbaProvjera,
+    AutorizacijaProdekanProvjera
   ],
   bootstrap: [AppComponent]
 })

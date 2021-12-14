@@ -21,9 +21,8 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             [JsonIgnore]
             public KorisnickiNalog korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
             public AutentifikacijaToken autentifikacijaToken { get; set; }
+            
             public bool isLogiran => korisnickiNalog != null;
-
-
             public bool isPermisijaStudentskaSluzba => isLogiran && (korisnickiNalog.isStudentskaSluzba || korisnickiNalog.isProdekan || korisnickiNalog.isAdmin);
             public bool isPermisijaDekan => isLogiran && (korisnickiNalog.isDekan || korisnickiNalog.isAdmin);
             public bool isPermisijaProdekan => isLogiran && (korisnickiNalog.isProdekan || korisnickiNalog.isDekan || korisnickiNalog.isAdmin);

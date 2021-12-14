@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FIT_Api_Examples.Migrations
 {
-    public partial class init : Migration
+    public partial class inicijalno : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -40,9 +40,9 @@ namespace FIT_Api_Examples.Modul2.Controllers
         public ActionResult Update(int id, [FromBody] StudentUpdateVM x)
         {
             if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
-                return Forbid();
-              
-            Student student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
+                return BadRequest("nije logiran");
+
+            Student student;
 
             if (id==0)
             {
@@ -53,9 +53,12 @@ namespace FIT_Api_Examples.Modul2.Controllers
                 };
                 _dbContext.Add(student);
             }
-
-            if (student == null)
-                return BadRequest("pogresan ID");
+            else
+            {
+                student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
+                if (student == null)
+                    return BadRequest("pogresan ID");
+            }
 
             student.ime = x.ime.RemoveTags();
             student.prezime = x.prezime.RemoveTags();

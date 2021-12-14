@@ -18,6 +18,7 @@ namespace FIT_Api_Examples.Data
         public DbSet<AutentifikacijaToken> AutentifikacijaToken{ get; set; }
         public DbSet<Nastavnik> Nastavnik{ get; set; }
         public DbSet<KorisnickiNalog> KorisnickiNalog{ get; set; }
+        public DbSet<Obavijest> Obavijest{ get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
@@ -36,7 +37,8 @@ namespace FIT_Api_Examples.Data
             base.OnModelCreating(modelBuilder);
             //ovdje pise FluentAPI konfiguraciju
 
-          
+            //modelBuilder.Entity<Student>().ToTable("Student");
+            //modelBuilder.Entity<Nastavnik>().ToTable("Nastavnik");
         }
     }
 }

@@ -47,7 +47,7 @@ namespace FIT_Api_Examples.Modul0_Autentifikacija.Controllers
             //3- dodati novi zapis u tabelu AutentifikacijaToken za logiraniKorisnikId i randomString
             var noviToken = new AutentifikacijaToken()
             {
-                ipAdresa = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
                 vrijednost = randomString,
                 korisnickiNalog = logiraniKorisnik,
                 vrijemeEvidentiranja = DateTime.Now

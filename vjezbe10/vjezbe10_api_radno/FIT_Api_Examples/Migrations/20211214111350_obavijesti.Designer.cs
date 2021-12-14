@@ -4,14 +4,16 @@ using FIT_Api_Examples.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FIT_Api_Examples.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211214111350_obavijesti")]
+    partial class obavijesti
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,13 +148,7 @@ namespace FIT_Api_Examples.Migrations
                     b.Property<DateTime>("datum_kreiranja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("datum_update")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("evidentiraoKorisnikID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("izmijenioKorisnikID")
                         .HasColumnType("int");
 
                     b.Property<string>("naslov")
@@ -164,8 +160,6 @@ namespace FIT_Api_Examples.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("evidentiraoKorisnikID");
-
-                    b.HasIndex("izmijenioKorisnikID");
 
                     b.ToTable("Obavijest");
                 });
@@ -297,13 +291,7 @@ namespace FIT_Api_Examples.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "izmijenioKorisnik")
-                        .WithMany()
-                        .HasForeignKey("izmijenioKorisnikID");
-
                     b.Navigation("evidentiraoKorisnik");
-
-                    b.Navigation("izmijenioKorisnik");
                 });
 
             modelBuilder.Entity("FIT_Api_Examples.Modul3.Models.PrijavaIspita", b =>

@@ -33,6 +33,7 @@ export class StudentiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.testirajWebApi();
   }
 
   detalji(s:any) {
@@ -42,7 +43,7 @@ export class StudentiComponent implements OnInit {
 
   snimi() {
     //this.odabraniStudent
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.odabraniStudent.id, this.odabraniStudent)
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Student/Update/" + this.odabraniStudent.id, this.odabraniStudent, MojConfig.http_opcije())
       .subscribe((povratnaVrijednost:any) =>{
         porukaSuccess("uredu..." + povratnaVrijednost.opstina_rodjenja.drzava.naziv);
     });
