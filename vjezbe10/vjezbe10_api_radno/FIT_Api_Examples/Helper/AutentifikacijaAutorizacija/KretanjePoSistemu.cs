@@ -40,7 +40,7 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
                 vrijeme = DateTime.Now,
                 queryPath = request.GetEncodedPathAndQuery(),
                 postData = detalji,
-                ipAdresa = request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                ipAdresa = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
             };
 
             if (exceptionMessage != null)

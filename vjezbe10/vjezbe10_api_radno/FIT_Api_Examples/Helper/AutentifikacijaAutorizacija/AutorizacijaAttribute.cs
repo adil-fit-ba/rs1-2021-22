@@ -11,7 +11,7 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 {
     public class AutorizacijaAttribute : TypeFilterAttribute
     {
-        public AutorizacijaAttribute()
+        public AutorizacijaAttribute(bool studentskaSluzba, bool prodekan, bool dekan, bool admin, bool studenti, bool nastavnici)
             : base(typeof(MyAuthorizeImpl))
         {
             Arguments = new object[] {  };
@@ -21,7 +21,22 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 
     public class MyAuthorizeImpl : IActionFilter
     {
-   
+        private readonly bool _studentskaSluzba;
+        private readonly bool _prodekan;
+        private readonly bool _dekan;
+        private readonly bool _admin;
+        private readonly bool _studenti;
+        private readonly bool _nastavnici;
+
+        public MyAuthorizeImpl(bool studentskaSluzba, bool prodekan, bool dekan, bool admin, bool studenti, bool nastavnici)
+        {
+            _studentskaSluzba = studentskaSluzba;
+            _prodekan = prodekan;
+            _dekan = dekan;
+            _admin = admin;
+            _studenti = studenti;
+            _nastavnici = nastavnici;
+        }
         public void OnActionExecuted(ActionExecutedContext context)
         {
 
@@ -38,9 +53,28 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             }
 
             KretanjePoSistemu.Save(filterContext.HttpContext);
-
-            //isPermisijaStudentskaSluzba
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+            
+            if (filterContext.HttpContext.GetLoginInfo().isPermisijaAdmin)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (filterContext.HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba && _studentskaSluzba)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (filterContext.HttpContext.GetLoginInfo().isPermisijaDekan && _dekan)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (filterContext.HttpContext.GetLoginInfo().isPermisijaStudent && _studenti)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (filterContext.HttpContext.GetLoginInfo().isPermisijaNastavnik && _nastavnici)
+            {
+                return;//ok - ima pravo pristupa
+            }
+            if (filterContext.HttpContext.GetLoginInfo().isPermisijaProdekan && _prodekan)
             {
                 return;//ok - ima pravo pristupa
             }

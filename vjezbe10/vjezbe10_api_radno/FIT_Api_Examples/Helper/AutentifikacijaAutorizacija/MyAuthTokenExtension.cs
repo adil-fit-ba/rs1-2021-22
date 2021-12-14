@@ -29,7 +29,7 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             public bool isPermisijaProdekan => isLogiran && (korisnickiNalog.isProdekan || korisnickiNalog.isDekan || korisnickiNalog.isAdmin);
             public bool isPermisijaNastavnik => isLogiran && (korisnickiNalog.nastavnik != null || korisnickiNalog.isAdmin);
             public bool isPermisijaStudent => isLogiran && (korisnickiNalog.student != null || korisnickiNalog.isAdmin);
-            public bool isPermsijaAdmin => isLogiran && korisnickiNalog.isAdmin;
+            public bool isPermisijaAdmin => isLogiran && korisnickiNalog.isAdmin;
         }
 
 
