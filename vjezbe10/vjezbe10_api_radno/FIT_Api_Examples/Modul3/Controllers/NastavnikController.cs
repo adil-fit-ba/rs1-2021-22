@@ -26,8 +26,8 @@ namespace FIT_Api_Examples.Modul3.Controllers
         [HttpPost]
         public ActionResult<Nastavnik> Add([FromBody] NastanvikAddVM x)
         {
-            if (HttpContext.GetLoginInfo().isPermsijaAdmin)
-                return Forbid();
+            if (!HttpContext.GetLoginInfo().isPermsijaAdmin)
+                return BadRequest("nije logiran");
 
             var nastavnik = new Nastavnik()
             {

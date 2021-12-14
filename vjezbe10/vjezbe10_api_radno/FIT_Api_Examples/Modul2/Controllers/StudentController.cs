@@ -29,45 +29,17 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            if (HttpContext.GetLoginInfo().isLogiran)
+            if (!HttpContext.GetLoginInfo().isLogiran)
                 return Forbid();
 
             return Ok(_dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id)); ;
         }
-
-        //[HttpPost]
-        /// <summary>
-        /// ova funkcija se moze obrisati jer fnkcija update moze raditi update i add (modifikovano 12.12.2021)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        //public ActionResult Add([FromBody] StudentAddVM x)
-        //{
-        //    if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
-        //        return Forbid();
-
-        //    var newStudent = new Student
-        //    {
-        //        ime = x.ime.RemoveTags(),
-        //        prezime = x.prezime.RemoveTags(),
-        //        broj_indeksa = x.broj_indeksa,
-        //        datum_rodjenja = x.datum_rodjenja,
-        //        opstina_rodjenja_id = x.opstina_rodjenja_id,
-        //        slika_korisnika = Config.SlikeURL + "empty.png",
-        //        created_time = DateTime.Now
-        //    };
-
-        //    _dbContext.Add(newStudent);
-        //    _dbContext.SaveChanges();
-        //    return Get(newStudent.id);
-        //}
-        
+       
 
         [HttpPost("{id}")]
         public ActionResult Update(int id, [FromBody] StudentUpdateVM x)
         {
-            if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+            if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
                 return Forbid();
               
             Student student = _dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id);
@@ -98,7 +70,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+            if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
                 return Forbid();
 
             Student student = _dbContext.Student.Find(id);
@@ -115,9 +87,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet]
         public ActionResult<PagedList<Student>> GetAllPaged(string ime_prezime, int items_per_page, int page_number= 1)
         {
-            if (HttpContext.GetLoginInfo().isLogiran)
-                return Forbid();
-
+ 
             var data = _dbContext.Student
                 .Include(s=>s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime)).OrderByDescending(s => s.prezime).ThenByDescending(s => s.ime)
@@ -128,9 +98,6 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpGet]
         public ActionResult<List<Student>> GetAll(string ime_prezime)
         {
-            if (HttpContext.GetLoginInfo().isLogiran)
-                return Forbid();
-
             var data = _dbContext.Student
                 .Include(s => s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
@@ -142,8 +109,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost("{id}")]
         public ActionResult AddProfileImage(int id, [FromForm] StudentImageAddVM x)
         {
-            if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
-                return Forbid();
+            if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+                return BadRequest("nije logiran");
 
             try
             {

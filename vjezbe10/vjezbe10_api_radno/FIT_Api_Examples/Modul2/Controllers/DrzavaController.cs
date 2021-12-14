@@ -29,8 +29,8 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost]
         public ActionResult<Drzava> Add([FromBody] DrzavaAddVM x)
         {
-            if (HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
-                return Forbid();
+            if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+                return BadRequest("nije logiran");
 
             var newEmployee = new Drzava
             {

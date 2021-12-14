@@ -26,7 +26,6 @@ namespace FIT_Api_Examples.Modul3.Controllers
         [HttpGet]
         public ActionResult<List<Ispit>> GetByDatum(DateTime? periodOd, DateTime? periodDo)
         {
-            
             List<Ispit> podaci = _dbContext.Ispit
                 .Where(x=> periodOd ==null || x.DatumIspita>= periodOd )
                 .Where(x=> periodDo == null || x.DatumIspita <= periodDo)
@@ -58,8 +57,8 @@ namespace FIT_Api_Examples.Modul3.Controllers
         public ActionResult AddJson([FromBody]IspitAddVM x)
         {
             if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
-                return Forbid();
-            
+                return BadRequest("nije logiran");
+
             Ispit ispit = new Ispit
             {
                 DatumIspita = x.datumIspita,

@@ -12,8 +12,12 @@ export class AutorizacijaStudentskaSluzbaProvjera implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
+      try {
+        //nedovrseno privremeno rjesenje
         if (AutentifikacijaHelper.getLoginInfo().isPermisijaStudentskaSluzba)
           return true;
+      }catch (e) {
+      }
 
         // not logged in so redirect to login page with the return url
         this.router.navigate([''], { queryParams: { returnUrl: state.url }});

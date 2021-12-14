@@ -15,7 +15,6 @@ import { Proba3Component } from './proba/proba3/proba3.component';
 import { Proba4Component } from './proba/proba4/proba4.component';
 import { Proba5Component } from './proba/proba5/proba5.component';
 import { LoginComponent } from './login/login.component';
-import {AutorizacijaAdminProvjera} from "./_guards";
 import { RegistracijaComponent } from './registracija/registracija.component';
 import { NastavniciComponent } from './nastavnici/nastavnici.component';
 import { HomeStudentComponent } from './home-student/home-student.component';
@@ -23,6 +22,8 @@ import { HomeZaposlenikComponent } from './home-zaposlenik/home-zaposlenik.compo
 import { HomeComponent } from './home/home.component';
 import {AutorizacijaStudentskaSluzbaProvjera} from "./_guards/autorizacija-studentska-sluzba-provjera.service";
 import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.service";
+import { NotFoundComponent } from './not-found/not-found.component';
+import {AutorizacijaAdminProvjera} from "./_guards/autorizacija-admin-provjera.service";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.s
     HomeStudentComponent,
     HomeZaposlenikComponent,
     HomeComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import {AutorizacijaLoginProvjera} from "./_guards/autorizacija-login-provjera.s
       {path: 'home-zaposlenik', component: HomeZaposlenikComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'login', component: LoginComponent},
       {path: 'registracija', component: RegistracijaComponent},
-      {path: '**', component: HomeComponent, canActivate: [AutorizacijaLoginProvjera]},
+      {path: '**', component: NotFoundComponent, canActivate: [AutorizacijaLoginProvjera]},
     ]),
     FormsModule,
     HttpClientModule
