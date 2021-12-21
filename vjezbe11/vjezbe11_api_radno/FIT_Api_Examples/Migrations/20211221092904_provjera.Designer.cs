@@ -4,14 +4,16 @@ using FIT_Api_Examples.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FIT_Api_Examples.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211221092904_provjera")]
+    partial class provjera
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,85 +218,6 @@ namespace FIT_Api_Examples.Migrations
                     b.ToTable("PrijavaIspita");
                 });
 
-            modelBuilder.Entity("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.AkademskaGodina", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("datum_added")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("datum_update")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("evidentiraoKorisnikid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("izmijenioKorisnikid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("opis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("evidentiraoKorisnikid");
-
-                    b.HasIndex("izmijenioKorisnikid");
-
-                    b.ToTable("AkademskaGodina");
-                });
-
-            modelBuilder.Entity("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.UpisUAkGodinu", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("akademskaGodinaId")
-                        .HasColumnType("int");
-
-                    b.Property<float?>("cijenaSkolarine")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime?>("datum1_ZimskiUpis")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("datum2_ZimskiOvjera")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("datum3_LjetniUpis")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("datum4_LjetniOvjera")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("evidentiraoKorisnikId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("godinaStudija")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("obnovaGodine")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("studentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("akademskaGodinaId");
-
-                    b.HasIndex("evidentiraoKorisnikId");
-
-                    b.HasIndex("studentId");
-
-                    b.ToTable("UpisUAkGodinu");
-                });
-
             modelBuilder.Entity("FIT_Api_Examples.Modul2.Models.Student", b =>
                 {
                     b.HasBaseType("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog");
@@ -402,48 +325,6 @@ namespace FIT_Api_Examples.Migrations
                     b.Navigation("Ispit");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.AkademskaGodina", b =>
-                {
-                    b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "evidentiraoKorisnik")
-                        .WithMany()
-                        .HasForeignKey("evidentiraoKorisnikid");
-
-                    b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "izmijenioKorisnik")
-                        .WithMany()
-                        .HasForeignKey("izmijenioKorisnikid");
-
-                    b.Navigation("evidentiraoKorisnik");
-
-                    b.Navigation("izmijenioKorisnik");
-                });
-
-            modelBuilder.Entity("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.UpisUAkGodinu", b =>
-                {
-                    b.HasOne("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.AkademskaGodina", "akademskaGodina")
-                        .WithMany()
-                        .HasForeignKey("akademskaGodinaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "evidentiraoKorisnik")
-                        .WithMany()
-                        .HasForeignKey("evidentiraoKorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FIT_Api_Examples.Modul2.Models.Student", "student")
-                        .WithMany()
-                        .HasForeignKey("studentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("akademskaGodina");
-
-                    b.Navigation("evidentiraoKorisnik");
-
-                    b.Navigation("student");
                 });
 
             modelBuilder.Entity("FIT_Api_Examples.Modul2.Models.Student", b =>

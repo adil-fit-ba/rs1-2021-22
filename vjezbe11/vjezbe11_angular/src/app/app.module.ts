@@ -30,6 +30,7 @@ import { HomeProdekanComponent } from './home-prodekan/home-prodekan.component';
 import { HomeDekanComponent } from './home-dekan/home-dekan.component';
 import { HomeNastavnikComponent } from './home-nastavnik/home-nastavnik.component';
 import { HomeAdministratorComponent } from './home-administrator/home-administrator.component';
+import { StudentMaticnaknjigaComponent } from './student-maticnaknjiga/student-maticnaknjiga.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { HomeAdministratorComponent } from './home-administrator/home-administra
     HomeDekanComponent,
     HomeNastavnikComponent,
     HomeAdministratorComponent,
+    StudentMaticnaknjigaComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,7 @@ import { HomeAdministratorComponent } from './home-administrator/home-administra
       {path: 'login', component: LoginComponent},
       {path: 'obavijesti', component: ObavijestiComponent, canActivate: [AutorizacijaProdekanProvjera]},
       {path: 'registracija', component: RegistracijaComponent},
+      {path: 'student-maticnaknjiga/:id', component: StudentMaticnaknjigaComponent, canActivate: [AutorizacijaStudentskaSluzbaProvjera]},
       {path: '', component: HomeComponent, canActivate: [AutorizacijaProdekanProvjera]},
       {path: '**', component: NotFoundComponent, canActivate: [AutorizacijaLoginProvjera]},
     ]),

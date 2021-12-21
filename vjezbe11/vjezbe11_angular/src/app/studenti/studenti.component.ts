@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {Router} from "@angular/router";
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
 
@@ -16,7 +17,7 @@ export class StudentiComponent implements OnInit {
   studentPodaci: any;
   odabraniStudent: any=null;
 
-  constructor(private httpKlijent: HttpClient) {
+  constructor(private httpKlijent: HttpClient, private router: Router) {
   }
 
   testirajWebApi() :void
@@ -70,5 +71,9 @@ export class StudentiComponent implements OnInit {
         }
         porukaSuccess("obrisano..." + povratnaVrijednost.ime);
       });
+  }
+
+  maticnaknjiga(s:any) {
+    this.router.navigate(['/student-maticnaknjiga', s.id]);
   }
 }

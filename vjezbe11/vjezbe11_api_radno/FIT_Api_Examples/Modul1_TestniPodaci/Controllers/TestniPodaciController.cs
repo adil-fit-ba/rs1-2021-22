@@ -8,6 +8,7 @@ using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul0_Autentifikacija.ViewModels;
 using FIT_Api_Examples.Modul2.Models;
 using FIT_Api_Examples.Modul3.Models;
+using FIT_Api_Examples.Modul4_MaticnaKnjiga.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,7 @@ namespace FIT_Api_Examples.Modul1_TestniPodaci.Controllers
             data.Add("Opstina", _dbContext.Opstina.Count());
             data.Add("PrijavaIspita", _dbContext.PrijavaIspita.Count());
             data.Add("Predmet", _dbContext.Predmet.Count());
+            data.Add("AkademskaGodina", _dbContext.AkademskaGodina.Count());
             data.Add("Drzava", _dbContext.Drzava.Count());
 
             return Ok(data);
@@ -49,6 +51,12 @@ namespace FIT_Api_Examples.Modul1_TestniPodaci.Controllers
             var predmeti = new List<Predmet>();
             var studenti = new List<Student>();
             var nastavnici = new List<Nastavnik>();
+            var akademskeGodine = new List<AkademskaGodina>();
+
+            akademskeGodine.Add(new AkademskaGodina { opis = "2019-20" });
+            akademskeGodine.Add(new AkademskaGodina { opis = "2020-21" });
+            akademskeGodine.Add(new AkademskaGodina { opis = "2021-22" });
+            akademskeGodine.Add(new AkademskaGodina { opis = "2022-23" });
 
             drzave.Add(new Drzava { naziv = "BiH" });
             drzave.Add(new Drzava { naziv = "HR" });
@@ -109,6 +117,7 @@ namespace FIT_Api_Examples.Modul1_TestniPodaci.Controllers
             _dbContext.AddRange(predmeti);
             _dbContext.AddRange(opstine);
             _dbContext.AddRange(drzave);
+            _dbContext.AddRange(akademskeGodine);
             _dbContext.AddRange(studenti);
             _dbContext.SaveChanges();
 

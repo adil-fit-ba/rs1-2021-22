@@ -4,14 +4,16 @@ using FIT_Api_Examples.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FIT_Api_Examples.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211221095356_upisgodinestudija")]
+    partial class upisgodinestudija
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,26 +225,10 @@ namespace FIT_Api_Examples.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("datum_added")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("datum_update")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("evidentiraoKorisnikid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("izmijenioKorisnikid")
-                        .HasColumnType("int");
-
                     b.Property<string>("opis")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("evidentiraoKorisnikid");
-
-                    b.HasIndex("izmijenioKorisnikid");
 
                     b.ToTable("AkademskaGodina");
                 });
@@ -402,21 +388,6 @@ namespace FIT_Api_Examples.Migrations
                     b.Navigation("Ispit");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.AkademskaGodina", b =>
-                {
-                    b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "evidentiraoKorisnik")
-                        .WithMany()
-                        .HasForeignKey("evidentiraoKorisnikid");
-
-                    b.HasOne("FIT_Api_Examples.Modul0_Autentifikacija.Models.KorisnickiNalog", "izmijenioKorisnik")
-                        .WithMany()
-                        .HasForeignKey("izmijenioKorisnikid");
-
-                    b.Navigation("evidentiraoKorisnik");
-
-                    b.Navigation("izmijenioKorisnik");
                 });
 
             modelBuilder.Entity("FIT_Api_Examples.Modul4_MaticnaKnjiga.Models.UpisUAkGodinu", b =>
