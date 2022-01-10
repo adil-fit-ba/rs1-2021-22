@@ -35,7 +35,7 @@ namespace FIT_Api_Examples.Modul5_singalr
                 Random r = new Random();
                 posaljiPorukuPremaKlijentuWS(r.Next()%100, r.Next() % 100, r.Next() % 100, r.Next() % 100);
             });
-            timer.Change(0, 500);
+            timer.Change(0, 1000);
             return Ok();
         }
         private void posaljiPorukuPremaKlijentuWS(int a, int b, int c, int d)
