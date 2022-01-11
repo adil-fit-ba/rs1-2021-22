@@ -1,0 +1,16 @@
+@using FIT_Api_Examples.Modul3.Models
+@{
+    DateTime vrijeme = new DateTime(2014, 5, 6);
+
+    vrijeme.AddDays(100);
+
+    List<Ispit> podaci = (List<Ispit>)ViewData["podaciKey"];
+}
+<h1>Hello FIT @vrijeme</h1>
+
+<ol>
+    @foreach (Ispit x in podaci)
+    {
+        <li>@x.Naziv | @x.predmet.Naziv</li>
+    }
+</ol>
