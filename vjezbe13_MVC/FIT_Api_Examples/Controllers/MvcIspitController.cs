@@ -33,6 +33,15 @@ namespace FIT_Api_Examples.Modul3.Controllers
         }
 
         [HttpGet]
+        public ActionResult Obrisi(int IspitID)
+        {
+            Ispit ispit = _dbContext.Ispit.Find(IspitID);
+            _dbContext.Remove(ispit);
+            _dbContext.SaveChanges();
+            return Redirect("/MvcIspit/GetByDatum");
+        }
+
+        [HttpGet]
         public ActionResult GetByDatum(DateTime? periodOd, DateTime? periodDo)
         {
             List<Ispit> podaci = _dbContext.Ispit
@@ -42,13 +51,16 @@ namespace FIT_Api_Examples.Modul3.Controllers
                 .ToList();
 
             ViewData["podaciKey"] = podaci;
+            ViewData["periodOdKey"] = periodOd;
+            ViewData["periodDoKey"] = periodDo;
 
 
             return View("GetByDatum");
         }
 
+  
 
-   
+
 
 
     }

@@ -5,14 +5,6 @@
     <UserSecretsId>d34a87ca-df94-40ff-9646-3a36e6c2616a</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Views\MvcIspit\GetByDatum.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\MvcIspit\GetByDatum.cshtml" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.12" />

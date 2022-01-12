@@ -1,13 +1,14 @@
 ﻿@using FIT_Api_Examples.Modul3.Models
 @{
-   
+   DateTime d1 = DateTime.Now;
+   DateTime d2 = DateTime.Now.AddDays(5);
 }
 
-<form action="/MvcIspit/GetByDatum">
+<form action="/MvcIspit/GetByDatum" method="get">
 
     Odaberite dva datuma<br />
-    Od <input value="" /> <br />
-    Do <input value="" />
+    Od <input type="date" value="@d1.ToString("yyyy-MM-dd")" name="periodOd" /> <br />
+    Do <input  type="date" value="@d2.ToString("yyyy-MM-dd")" name="periodDo"/>
 
 
     <input type="submit" value="Pretrazi" />
